@@ -1019,8 +1019,6 @@ services:
       OB_CLUSTER_NAME: ${OCEANBASE_CLUSTER_NAME:-difyai}
       OB_SERVER_IP: 127.0.0.1
       MODE: mini
-    ports:
-      - "${OCEANBASE_VECTOR_PORT:-2881}:2881"
     healthcheck:
       test: [ 'CMD-SHELL', 'obclient -h127.0.0.1 -P2881 -uroot@test -p$${OB_TENANT_PASSWORD} -e "SELECT 1;"' ]
       interval: 10s
@@ -1122,13 +1120,13 @@ services:
       bootstrap.memory_lock: ${OPENSEARCH_BOOTSTRAP_MEMORY_LOCK:-true}
       OPENSEARCH_JAVA_OPTS: -Xms${OPENSEARCH_JAVA_OPTS_MIN:-512m} -Xmx${OPENSEARCH_JAVA_OPTS_MAX:-1024m}
       OPENSEARCH_INITIAL_ADMIN_PASSWORD: ${OPENSEARCH_INITIAL_ADMIN_PASSWORD:-Qazwsxedc!@#123}
-    ulimits:
-      memlock:
-        soft: ${OPENSEARCH_MEMLOCK_SOFT:--1}
-        hard: ${OPENSEARCH_MEMLOCK_HARD:--1}
-      nofile:
-        soft: ${OPENSEARCH_NOFILE_SOFT:-65536}
-        hard: ${OPENSEARCH_NOFILE_HARD:-65536}
+#    ulimits:
+#      memlock:
+#        soft: ${OPENSEARCH_MEMLOCK_SOFT:--1}
+#        hard: ${OPENSEARCH_MEMLOCK_HARD:--1}
+#      nofile:
+#        soft: ${OPENSEARCH_NOFILE_SOFT:-65536}
+#        hard: ${OPENSEARCH_NOFILE_HARD:-65536}
     volumes:
       - ./volumes/opensearch/data:/usr/share/opensearch/data
     networks:
